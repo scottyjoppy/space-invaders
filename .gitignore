@@ -1,0 +1,31 @@
+# Vim temporary files
+*~
+*.swp
+*.swo
+*.un~
+.*.swp
+.*.swo
+.*.un~
+.*~
+
+# Build files
+*.o
+*.obj
+*.exe
+*.dll
+*.so
+*.a
+*.lib
+
+# IDE files
+.vscode/
+.idea/
+*.vcxproj
+*.sln
+
+# System files
+Thumbs.db
+.DS_Store
+
+# MinGW/Make
+*.d
