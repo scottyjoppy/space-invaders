@@ -1,7 +1,7 @@
 #include <math.h>
 #include "Math.h"
 #include <iostream>
-#define GLOBALTILESIZE 96
+#define GLOBALTILESIZE 48
 
 sf::Vector2f Math::NormalizeVector(sf::Vector2f vector)
 {

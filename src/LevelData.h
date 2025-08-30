@@ -1,15 +1,15 @@
 #pragma once
 #include <string>
 
-struct MapData
+struct LevelData
 {
 	int version;
 
 	std::string tileSheet = "";
 	std::string name = "";
 
-	int mapWidth = 0;
-	int mapHeight = 0;
+	int levelWidth = 0;
+	int levelHeight = 0;
 
 	int tileWidth = 0;
 	int tileHeight = 0;
@@ -17,4 +17,5 @@ struct MapData
 	int dataLength = 0;
 	int* data = nullptr;
 };
+
 

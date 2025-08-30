@@ -1,0 +1,11 @@
+[Level]
+version=1
+tile-sheet=C:/Users/alexa/Documents/Projects/Space_Invaders/assets/enemy/textures/enemy-spritesheet.png
+name=Level 1
+level-width=4
+level-height=3
+tile-width=32
+tile-height=32
+data-length=12
+
+data=0, 1, 0, 1, 2, 3, 3, 2, 10, 10, 10, 10

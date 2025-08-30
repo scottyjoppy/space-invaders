@@ -30,7 +30,7 @@ class Enemy
 
 		void ChangeHealth(int hp);
 
-		void Initialize();
+		void Initialize(sf::Texture& texture, int enemyIndex, sf::Vector2f position, sf::Vector2f tileSize, sf::Vector2f scale, int levelWidth);
 		void Load();
 		void Update(float deltaTime);
 		void Draw(sf::RenderWindow& window);	
