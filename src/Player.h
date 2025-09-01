@@ -30,6 +30,6 @@ class Player
 		~Player();
 		void Initialize();
 		void Load(sf::RenderWindow& window);
-		void Update(float deltaTime, sf::RenderWindow& window, Enemy& enemy, sf::Vector2f& mousePosition);
+		void Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, sf::Vector2f& mousePosition, int dataLength);
 		void Draw(sf::RenderWindow& window);	
 };

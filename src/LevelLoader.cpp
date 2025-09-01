@@ -41,14 +41,18 @@ void LevelLoader::Load(std::string filename, LevelData& levelData)
 					levelData.tileSheet = value;
 				else if (variable == "name")
 					levelData.name = value;
-				else if (variable == "level-width")
-					levelData.levelWidth = std::stoi(value);
-				else if (variable == "level-height")
-					levelData.levelHeight = std::stoi(value);
+				else if (variable == "sheet-width")
+					levelData.sheetWidth = std::stoi(value);
+				else if (variable == "sheet-height")
+					levelData.sheetHeight = std::stoi(value);
 				else if (variable == "tile-width")
 					levelData.tileWidth = std::stoi(value);
 				else if (variable == "tile-height")
 					levelData.tileHeight = std::stoi(value);
+                else if (variable == "level-width")
+                    levelData.levelWidth = std::stoi(value);
+                else if (variable == "level-height")
+                    levelData.levelHeight = std::stoi(value);
 				else if (variable == "data-length")
 					levelData.dataLength = std::stoi(value);
 				else if (variable == "data")

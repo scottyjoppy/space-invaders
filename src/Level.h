@@ -8,9 +8,11 @@
 
 class Level
 {
-	private:
+    public:
         Enemy* enemies;
+        int m_dataLength;
 
+	private:
 		sf::Texture tileSheetTexture;
 
 		LevelData ld;

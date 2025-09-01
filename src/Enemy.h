@@ -20,6 +20,8 @@ class Enemy
 	public:
 		sf::Sprite sprite;
 
+        int m_type;
+
 		sf::RectangleShape boundingRectangle;
 		sf::Vector2i size;
 		int health;
@@ -30,7 +32,7 @@ class Enemy
 
 		void ChangeHealth(int hp);
 
-		void Initialize(sf::Texture& texture, int enemyIndex, sf::Vector2f position, sf::Vector2f tileSize, sf::Vector2f scale, int levelWidth);
+		void Initialize(sf::Texture& texture, int enemyTypeIndex, sf::Vector2f position, sf::Vector2f tileSize, sf::Vector2f scale, int sheetWidth);
 		void Load();
 		void Update(float deltaTime);
 		void Draw(sf::RenderWindow& window);	

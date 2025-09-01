@@ -3,12 +3,13 @@
 #include "Math.h"
 
 Level::Level() :
-    enemies(nullptr)
+    enemies(nullptr), m_dataLength(0)
 {
 }
 
 Level::~Level()
 {
+    delete[] enemies;
 }
 
 void Level::Initialize()
@@ -19,28 +20,33 @@ void Level::Load()
 {
     levelLoader.Load("assets/levels/level1.txt", ld);
 
-    tileSheetTexture.loadFromFile(ld.tileSheet);
-
     enemies = new Enemy[ld.dataLength];
 
-    sf::Vector2f scale = Math::CalcScale(sf::Vector2i(ld.tileWidth, ld.tileHeight));
+    m_dataLength = ld.dataLength;
 
-    for (size_t y = 0; y < ld.levelHeight;y++)
+    if (tileSheetTexture.loadFromFile(ld.tileSheet))
     {
-        for (size_t x = 0; x < ld.levelWidth; x++)
-        {
-            int i = x + y * ld.levelWidth;
-            int enemyTypeIndex = ld.data[i];
+        sf::Vector2f scale = Math::CalcScale(sf::Vector2i(ld.tileWidth, ld.tileHeight));
 
-            enemies[i].Initialize
-            (
-             tileSheetTexture,
-             enemyTypeIndex,
-             sf::Vector2f(x * ld.tileWidth, y * ld.tileHeight),
-             sf::Vector2f(ld.tileWidth, ld.tileHeight),
-             scale,
-             ld.levelWidth
-            );
+        for (size_t y = 0; y < ld.levelHeight;y++)
+        {
+            for (size_t x = 0; x < ld.levelWidth; x++)
+            {
+                int i = x + y * ld.levelWidth;
+
+                int enemyTypeIndex = ld.data[i];
+
+                enemies[i].Initialize
+                    (
+                     tileSheetTexture,
+                     enemyTypeIndex,
+                     sf::Vector2f(x * ld.tileWidth, y * ld.tileHeight),
+                     sf::Vector2f(ld.tileWidth, ld.tileHeight),
+                     scale,
+                     ld.sheetWidth
+                    );
+                enemies[i].Load();
+            }
         }
     }
 
@@ -49,13 +55,13 @@ void Level::Load()
 
 void Level::Update(float deltaTime)
 {
+    for (size_t i = 0; i < ld.dataLength; i++)
+        enemies[i].Update(deltaTime);
 }
 
 void Level::Draw(sf::RenderWindow& window)
 {
     for (size_t i = 0; i < ld.dataLength; i++)
-    {
-        window.draw(enemies[i].sprite);
-    }
+        enemies[i].Draw(window);
 }
 

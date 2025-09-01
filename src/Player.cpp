@@ -42,7 +42,7 @@ void Player::Load(sf::RenderWindow& window)
 	}
 }
 
-void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy& enemy, sf::Vector2f& mousePosition)
+void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, sf::Vector2f& mousePosition, int dataLength)
 {
     sf::Vector2u windowSize = window.getSize();
     sf::Vector2f position = sprite.getPosition();
@@ -88,13 +88,18 @@ void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy& enemy, sf:
 
         bool remove = false;
 
-        if (enemy.health > 0)
+        for (size_t a = 0; a < dataLength; a++)
         {
-            if (Math::DidRectCollide(i->GetGlobalBounds(), enemy.sprite.getGlobalBounds()))
+            if (enemies[a].health > 0)
             {
-                enemy.ChangeHealth(-10);
-                remove = true;
+                if (Math::DidRectCollide(i->GetGlobalBounds(), enemies[a].sprite.getGlobalBounds()))
+                {
+                    enemies[a].ChangeHealth(-10);
+                    remove = true;
+                    break;
+                }
             }
+
         }
 
         sf::Vector2f pos = i->GetPosition();
@@ -105,6 +110,7 @@ void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy& enemy, sf:
             i = bullets.erase(i);
         else
             ++i;
+
     }
 
     boundingRectangle.setPosition(sprite.getPosition());
