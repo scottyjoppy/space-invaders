@@ -25,6 +25,8 @@ class Player
 	public:
 		sf::Sprite sprite;
 
+        int points;
+
 	public:
 		Player();
 		~Player();

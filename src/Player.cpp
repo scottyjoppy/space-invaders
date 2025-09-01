@@ -4,7 +4,7 @@
 #include "Math.h"
 
 Player::Player() :
-	playerSpeed(1.0f), maxFireRate(150), fireRateTimer(0), tileWidth(80), tileHeight(80), focused(false)
+	playerSpeed(1.0f), maxFireRate(150), fireRateTimer(0), tileWidth(80), tileHeight(80), focused(false), points(0)
 {
 }
 
@@ -96,6 +96,8 @@ void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, s
                 {
                     enemies[a].ChangeHealth(-10);
                     remove = true;
+
+                    points += 10;
                     break;
                 }
             }

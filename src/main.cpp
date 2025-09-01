@@ -2,6 +2,7 @@
 #include <iostream>
 
 #include "FrameRate.h"
+#include "Points.h"
 #include "Player.h"
 #include "Enemy.h"
 #include "Level.h"
@@ -16,11 +17,13 @@ int main()
 	//-----INITIALIZE-----
 	
 	FrameRate frameRate;
+	Points points;
 	Player player;
 	Enemy enemy;
     Level level;
 
 	frameRate.Initialize();
+    points.Initialize();
 	player.Initialize();
     level.Initialize();
 
@@ -29,6 +32,7 @@ int main()
 	//-----LOAD-----
 	
 	frameRate.Load();
+    points.Load();
 	player.Load(window);
     level.Load();
 
@@ -54,6 +58,7 @@ int main()
 		sf::Vector2f mousePosition = sf::Vector2f(sf::Mouse::getPosition(window));
 
 		frameRate.Update(deltaTime);
+        points.Update(deltaTime, player.points);
 		player.Update(deltaTime, window, level.enemies, mousePosition, level.m_dataLength);
         level.Update(deltaTime);
 		
@@ -64,6 +69,7 @@ int main()
 
 		player.Draw(window);
 		frameRate.Draw(window);
+        points.Draw(window);
         level.Draw(window);
 
 		window.display();

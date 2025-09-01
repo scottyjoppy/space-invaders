@@ -3,7 +3,7 @@
 #include "Math.h"
 
 Enemy::Enemy() :
-	health(100), m_enemySpeed(1.0f), m_tickRate(1000), m_type(0)
+	health(10), m_enemySpeed(1.0f), m_tickRate(1000), m_type(0)
 {
 }
 
@@ -11,18 +11,8 @@ Enemy::~Enemy()
 {
 }
 
-void Enemy::ChangeHealth(int hp)
-{
-	health += hp;
-	healthText.setString(std::to_string(health));
-}
-
 void Enemy::Initialize(sf::Texture& texture, int enemyTypeIndex, sf::Vector2f position, sf::Vector2f tileSize, sf::Vector2f scale, int sheetWidth)
 {
-	boundingRectangle.setFillColor(sf::Color::Transparent);
-	boundingRectangle.setOutlineColor(sf::Color::Red);
-	boundingRectangle.setOutlineThickness(1);
-
     int ix = enemyTypeIndex % sheetWidth; 
     int iy = enemyTypeIndex / sheetWidth;
 
@@ -71,3 +61,10 @@ void Enemy::Draw(sf::RenderWindow& window)
 		window.draw(healthText);
 	}
 }
+
+void Enemy::ChangeHealth(int hp)
+{
+	health += hp;
+	healthText.setString(std::to_string(health));
+}
+

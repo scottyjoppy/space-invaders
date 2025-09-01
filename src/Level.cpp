@@ -24,6 +24,9 @@ void Level::Load()
 
     m_dataLength = ld.dataLength;
 
+    int offsetX = 100;
+    int offsetY = 50;
+
     if (tileSheetTexture.loadFromFile(ld.tileSheet))
     {
         sf::Vector2f scale = Math::CalcScale(sf::Vector2i(ld.tileWidth, ld.tileHeight));
@@ -40,7 +43,7 @@ void Level::Load()
                     (
                      tileSheetTexture,
                      enemyTypeIndex,
-                     sf::Vector2f(x * ld.tileWidth, y * ld.tileHeight),
+                     sf::Vector2f(x * ld.tileWidth + offsetX, y * ld.tileHeight + offsetY),
                      sf::Vector2f(ld.tileWidth, ld.tileHeight),
                      scale,
                      ld.sheetWidth
