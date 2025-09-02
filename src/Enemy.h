@@ -13,9 +13,12 @@ class Enemy
 		int tileHeight;
 		sf::Vector2f scale;
 
-
         float m_tickRate;
         float m_enemySpeed;
+
+        bool xDirection;
+        bool moveDown;
+        int distanceMoved;
 
 	public:
 		sf::Sprite sprite;
@@ -30,7 +33,7 @@ class Enemy
 		Enemy();
 		~Enemy();
 
-		void Initialize(sf::Texture& texture, int enemyTypeIndex, sf::Vector2f position, sf::Vector2f tileSize, sf::Vector2f scale, int sheetWidth);
+		void Initialize(sf::Texture& texture, int enemyTypeIndex, sf::Vector2f position, sf::Vector2f tileSize, sf::Vector2f scale, int sheetWidth, float tickRate);
 		void Load();
 		void Update(float deltaTime);
 		void Draw(sf::RenderWindow& window);	

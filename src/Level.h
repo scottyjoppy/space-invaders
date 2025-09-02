@@ -14,16 +14,20 @@ class Level
 
 	private:
 		sf::Texture tileSheetTexture;
+        int offsetX;
+        int offsetY;
+
+        sf::Vector2u screenSize;
 
 		LevelData ld;
         LevelLoader levelLoader;
 
 	public:
-		Level();
+		Level(sf::Vector2i offset);
 		~Level();
 
 		void Initialize();
-		void Load();
+		void Load(sf::RenderWindow& window, unsigned int levelNum);
 		void Update(float deltaTime);
 		void Draw(sf::RenderWindow& window);
 };

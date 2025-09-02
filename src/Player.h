@@ -20,10 +20,15 @@ class Player
 		int tileWidth;
 		int tileHeight;
 		sf::Vector2f scale;
+
         bool focused;
+
+        sf::Vector2u screenSize;
 
 	public:
 		sf::Sprite sprite;
+        float padding;
+        bool isAlive;
 
         int points;
 
@@ -32,6 +37,6 @@ class Player
 		~Player();
 		void Initialize();
 		void Load(sf::RenderWindow& window);
-		void Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, sf::Vector2f& mousePosition, int dataLength);
+		void Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, int dataLength);
 		void Draw(sf::RenderWindow& window);	
 };

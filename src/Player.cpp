@@ -4,7 +4,7 @@
 #include "Math.h"
 
 Player::Player() :
-	playerSpeed(1.0f), maxFireRate(150), fireRateTimer(0), tileWidth(80), tileHeight(80), focused(false), points(0)
+	playerSpeed(1.0f), maxFireRate(10), fireRateTimer(1), tileWidth(80), tileHeight(80), focused(false), points(0), screenSize(0, 0), padding(200.f), isAlive(true)
 {
 }
 
@@ -23,6 +23,9 @@ void Player::Initialize()
 
 void Player::Load(sf::RenderWindow& window)
 {
+    screenSize.x = window.getSize().x;
+    screenSize.y = window.getSize().y;
+
 	if (texture.loadFromFile("assets/player/textures/spaceship.png"))
 	{
 		std::cout << "Ship sprite loaded!" << std::endl;
@@ -31,7 +34,7 @@ void Player::Load(sf::RenderWindow& window)
 		sprite.setTexture(texture);
 
 		sprite.setTextureRect(sf::IntRect(0, 0, size.x, size.y));
-		sprite.setPosition(sf::Vector2f(window.getSize().x / 2, window.getSize().y - size.y * scale.y));
+		sprite.setPosition(sf::Vector2f(screenSize.x / 2, screenSize.y - size.y * scale.y));
 
 		sprite.setScale(sf::Vector2f(scale.x, scale.y));
 		boundingRectangle.setSize(sf::Vector2f(size.x * scale.x, size.y * scale.y));
@@ -42,9 +45,8 @@ void Player::Load(sf::RenderWindow& window)
 	}
 }
 
-void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, sf::Vector2f& mousePosition, int dataLength)
+void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, int dataLength)
 {
-    sf::Vector2u windowSize = window.getSize();
     sf::Vector2f position = sprite.getPosition();
     fireRateTimer += deltaTime;
 
@@ -61,11 +63,10 @@ void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, s
 		if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
             position.x += playerSpeed * deltaTime;
 
-        float halfWidth = (size.x * scale.y) / 2.0f;
-        if (position.x < halfWidth)
-            position.x = halfWidth;
-        if (position.x > windowSize.x - (halfWidth * 3))
-            position.x = windowSize.x - (halfWidth * 3);
+        if (position.x < padding)
+            position.x = padding;
+        if (position.x > screenSize.x - (padding + size.x))
+            position.x = screenSize.x - (padding + size.x);
 
 
         sprite.setPosition(position);
@@ -79,6 +80,17 @@ void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, s
             bullets[i].Initialize(sprite, 0.5f);
 
             fireRateTimer = 0;
+        }
+    }
+
+    for (size_t i = 0; i < dataLength; i++)
+    {
+        if (enemies[i].health > 0)
+        {
+            if (Math::DidRectCollide(enemies[i].sprite.getGlobalBounds(), sprite.getGlobalBounds()))
+            {
+                isAlive = false;
+            }
         }
     }
 
@@ -105,7 +117,7 @@ void Player::Update(float deltaTime, sf::RenderWindow& window, Enemy* enemies, s
         }
 
         sf::Vector2f pos = i->GetPosition();
-        if (pos.x < 0 || pos.x > windowSize.x || pos.y < 0 || pos.y > windowSize.y)
+        if (pos.x < 0 || pos.x > screenSize.x || pos.y < 0 || pos.y > screenSize.y)
             remove = true;
 
         if (remove)

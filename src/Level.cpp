@@ -2,8 +2,8 @@
 #include "Level.h"
 #include "Math.h"
 
-Level::Level() :
-    enemies(nullptr), m_dataLength(0)
+Level::Level(sf::Vector2i offset) :
+    enemies(nullptr), m_dataLength(0), screenSize(0, 0), offsetX(offset.x), offsetY(offset.y)
 {
 }
 
@@ -16,16 +16,13 @@ void Level::Initialize()
 {
 }
 
-void Level::Load()
+void Level::Load(sf::RenderWindow& window, unsigned int levelNum)
 {
     levelLoader.Load("assets/levels/level1.txt", ld);
 
     enemies = new Enemy[ld.dataLength];
 
     m_dataLength = ld.dataLength;
-
-    int offsetX = 100;
-    int offsetY = 50;
 
     if (tileSheetTexture.loadFromFile(ld.tileSheet))
     {
@@ -46,7 +43,8 @@ void Level::Load()
                      sf::Vector2f(x * ld.tileWidth + offsetX, y * ld.tileHeight + offsetY),
                      sf::Vector2f(ld.tileWidth, ld.tileHeight),
                      scale,
-                     ld.sheetWidth
+                     ld.sheetWidth,
+                     110 - levelNum * 10
                     );
                 enemies[i].Load();
             }
